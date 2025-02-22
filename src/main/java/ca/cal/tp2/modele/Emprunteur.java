@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "emprunteur")
@@ -17,6 +18,6 @@ import java.util.HashSet;
 @Getter
 @Setter
 public class Emprunteur extends Utilisateur{
-//    @OneToMany(mappedBy = "emprunteur")
-//    private Set<Emprunt> emprunts = new HashSet<>();
+    @OneToMany(mappedBy = "emprunteur")
+    private Set<Emprunt> emprunts = new HashSet<>();
 }
