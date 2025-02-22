@@ -24,7 +24,7 @@ public class Document {
     private String auteur;
     private String editeur;
     private int annee;
-    private int copiesAvailable;
+    private int copiesDisponible;
 
     @Override
     public String toString() {
@@ -34,7 +34,7 @@ public class Document {
                 ", auteur='" + auteur + '\'' +
                 ", editeur='" + editeur + '\'' +
                 ", annee=" + annee +
-                ", copiesAvailable=" + copiesAvailable +
+                ", copiesAvailable=" + copiesDisponible +
                 '}';
     }
 }
