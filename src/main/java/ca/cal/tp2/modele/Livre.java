@@ -18,7 +18,7 @@ public class Livre extends Document{
 
     @Override
     public String toString() {
-        return "Livre{" +
+        return "Livre{" + " id=" + getId() +
                 "nombrePages=" + nombrePages +
                 ", genre='" + genre + '\'' +
                 '}';
