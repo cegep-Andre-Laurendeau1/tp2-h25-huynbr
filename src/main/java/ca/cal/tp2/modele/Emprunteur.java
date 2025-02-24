@@ -14,7 +14,6 @@ import java.util.Set;
 @Entity
 @Table(name = "emprunteur")
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class Emprunteur extends Utilisateur{

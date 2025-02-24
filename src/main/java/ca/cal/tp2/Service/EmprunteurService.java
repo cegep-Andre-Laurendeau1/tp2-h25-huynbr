@@ -11,12 +11,12 @@ public class EmprunteurService {
         this.emprunteurDAO = emprunteurDAO;
     }
 
-    public EmprunteurDTO createEmprunteur(String nom, String prenom, String adresse, String mail, String telephone) {
+    public EmprunteurDTO createEmprunteur(String nom, String prenom, String adresse, String email, String telephone) {
         Emprunteur emprunteur = new Emprunteur();
         emprunteur.setNom(nom);
         emprunteur.setPrenom(prenom);
         emprunteur.setAdresse(adresse);
-        emprunteur.setEmail(mail);
+        emprunteur.setEmail(email);
         emprunteur.setTelephone(telephone);
         emprunteurDAO.save(emprunteur);
         return toDTO(emprunteur);
