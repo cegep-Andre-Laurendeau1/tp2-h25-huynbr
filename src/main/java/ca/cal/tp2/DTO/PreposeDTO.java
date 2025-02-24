@@ -17,5 +17,5 @@ public class PreposeDTO {
     private String prenom;
     private String address;
     private String email;
-    private int telephone;
+    private String telephone;
 }
