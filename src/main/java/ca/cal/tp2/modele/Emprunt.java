@@ -18,7 +18,6 @@ public class Emprunt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Temporal(TemporalType.DATE)
     private LocalDate dateEmprunt;
     @Temporal(TemporalType.DATE)
