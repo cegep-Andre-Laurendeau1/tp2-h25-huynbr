@@ -26,11 +26,11 @@ public class PreposeDAOImpl implements PreposeDAO {
 
     @Override
     public Prepose findById(Long id) {
-        return null;
+        return entityManager.find(Prepose.class, id);
     }
 
     @Override
     public List<Prepose> findAll() {
-        return List.of();
+        return entityManager.createQuery("from Prepose", Prepose.class).getResultList();
     }
 }
