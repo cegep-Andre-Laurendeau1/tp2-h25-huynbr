@@ -14,7 +14,14 @@ public class PreposeDAOImpl implements PreposeDAO {
 
     @Override
     public void save(Prepose prepose) {
-
+        entityManager.getTransaction().begin();
+        if (prepose.getId() == null) {
+            entityManager.persist(prepose);
+        } else {
+            entityManager.merge(prepose);
+        }
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 
     @Override

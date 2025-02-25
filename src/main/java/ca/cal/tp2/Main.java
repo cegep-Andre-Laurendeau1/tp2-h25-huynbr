@@ -2,8 +2,12 @@ package ca.cal.tp2;
 
 import ca.cal.tp2.DAO.EmprunteurDAO;
 import ca.cal.tp2.DAO.EmprunteurDAOImpl;
+import ca.cal.tp2.DAO.PreposeDAO;
+import ca.cal.tp2.DAO.PreposeDAOImpl;
 import ca.cal.tp2.DTO.EmprunteurDTO;
 import ca.cal.tp2.Service.EmprunteurService;
+import ca.cal.tp2.Service.PreposeService;
+import ca.cal.tp2.modele.Prepose;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -17,10 +21,20 @@ public class Main {
         EntityManager em = emf.createEntityManager();
         EmprunteurDAO emprunteurDAO = new EmprunteurDAOImpl(em);
         EmprunteurService emprunteurService = new EmprunteurService(emprunteurDAO);
+        PreposeDAO preposeDAO = new PreposeDAOImpl(em);
+        PreposeService preposeService = new PreposeService(preposeDAO);
 
         System.out.println("Enregistrement d'un nouveau Emprunteur...");
         EmprunteurDTO emprunteur = emprunteurService.createEmprunteur("Smith", "John", "rue 1234", "johnsmith@gmail.com", "5141234567");
         System.out.println("Enregistrement d'un nouveau Emprunteur Réussi : " + emprunteur.getId() + " " + emprunteur.getNom() + " " + emprunteur.getPrenom() + " " + emprunteur.getEmail() + " "
                 + emprunteur.getAddress()+ " " + emprunteur.getTelephone() );
+        Prepose prepose1 = preposeService.createPrepose("Doe", "Jane", "rue 0987", "janedoe@gmail.com", "5145554321");
+        System.out.println("---------------------------------------------------------------------");
+
+        System.out.println("Enregistrement d'un nouveau Emprunteur...");
+        System.out.println("Enregistrement d'un nouveau Préposé Réussi :" +
+                "\n: " + prepose1.getId() + " " + prepose1.getNom() + " " + prepose1.getPrenom() + " " + prepose1.getEmail() + " " + prepose1.getAdresse() + prepose1.getTelephone());
+        System.out.println("---------------------------------------------------------------------");
+
     }
 }
