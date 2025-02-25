@@ -16,7 +16,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Document {
+public abstract class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
