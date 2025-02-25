@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "emprunt")
@@ -29,6 +28,6 @@ public class Emprunt {
     @ManyToOne
     @JoinColumn(name = "emprunteur_id")
     private Emprunteur emprunteur;
-//    @OneToMany(mappedBy = "emprunt", cascade = CascadeType.ALL)
-//    private List<EmpruntDocument> empruntDocuments;
+    @OneToMany(mappedBy = "emprunt", cascade = CascadeType.ALL)
+    private List<EmpruntDocument> empruntDocuments;
 }

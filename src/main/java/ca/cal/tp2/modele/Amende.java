@@ -1,13 +1,9 @@
 package ca.cal.tp2.modele;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "amende")
@@ -15,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Amende {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +20,7 @@ public class Amende {
     @Temporal(TemporalType.DATE)
     private LocalDate dateCreation;
     private boolean status;
+    @ManyToOne
+    @JoinColumn(name = "emprunteur_id")
+    private Emprunteur emprunteur;
 }
