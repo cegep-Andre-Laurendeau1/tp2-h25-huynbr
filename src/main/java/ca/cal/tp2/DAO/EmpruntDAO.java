@@ -8,5 +8,5 @@ public interface EmpruntDAO {
     Emprunt findById(Long id);
     List<Emprunt> findAllByEmpruntId(Long id);
     void save(Emprunt emprunt);
-    List<Emprunt> findByEmpruntId(Long id);
+    List<Emprunt> findByEmprunteurId(Long id);
 }
