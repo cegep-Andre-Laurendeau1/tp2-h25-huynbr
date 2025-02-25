@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -20,11 +21,11 @@ public class Emprunt {
     private Long id;
 
     @Temporal(TemporalType.DATE)
-    private Date dateEmprunt;
+    private LocalDate dateEmprunt;
     @Temporal(TemporalType.DATE)
-    private Date dateRetourPrevu;
+    private LocalDate dateRetourPrevu;
     @Temporal(TemporalType.DATE)
-    private Date dateRetourReel;
+    private LocalDate dateRetourReel;
     @ManyToOne
     @JoinColumn(name = "emprunteur_id")
     private Emprunteur emprunteur;
