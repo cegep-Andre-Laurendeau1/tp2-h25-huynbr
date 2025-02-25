@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CDDTO {
+public class DVDDTO {
     private Long id;
     private String titre;
     private String auteur;
