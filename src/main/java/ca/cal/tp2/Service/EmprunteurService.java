@@ -22,6 +22,16 @@ public class EmprunteurService {
         return toDTO(emprunteur);
     }
 
+    public EmprunteurDTO getEmprunteur(Long id) {
+        Emprunteur emprunteur = emprunteurDAO.findById(id);
+        if (emprunteur != null) {
+            return toDTO(emprunteur);
+        }
+        else {
+            return null;
+        }
+    }
+
     private EmprunteurDTO toDTO(Emprunteur emprunteur) {
         return new EmprunteurDTO(emprunteur.getId(), emprunteur.getNom()
                 , emprunteur.getPrenom(), emprunteur.getAdresse()
