@@ -5,6 +5,7 @@ import ca.cal.tp2.DTO.CDDTO;
 import ca.cal.tp2.DTO.DVDDTO;
 import ca.cal.tp2.DTO.LivreDTO;
 import ca.cal.tp2.DTO.PreposeDTO;
+import ca.cal.tp2.modele.CD;
 import ca.cal.tp2.modele.Document;
 import ca.cal.tp2.modele.Prepose;
 
@@ -33,7 +34,15 @@ public class PreposeService {
         return prepose;
     }
     public void addCD(CDDTO cdDTO) {
-
+        CD cd = new CD();
+        cd.setTitre(cdDTO.getTitre());
+        cd.setAuteur(cdDTO.getAuteur());
+        cd.setEditeur(cdDTO.getEditeur());
+        cd.setAnnee(cdDTO.getAnnee());
+        cd.setCopiesDisponible(cdDTO.getCopiesAvailable());
+        cd.setDuree(cdDTO.getDuree());
+        cd.setGenre(cdDTO.getGenre());
+        cddao.save(cd);
     }
     public void addDVD(DVDDTO dvdDTO) {
     }

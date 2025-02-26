@@ -48,9 +48,6 @@ public class EmprunteurDAOImpl implements EmprunteurDAO {
                 entityManager.getTransaction().rollback();
             }
             throw e;
-        } finally {
-            entityManager.close();
-
         }
     }
 }

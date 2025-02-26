@@ -21,7 +21,6 @@ public class PreposeDAOImpl implements PreposeDAO {
             entityManager.merge(prepose);
         }
         entityManager.getTransaction().commit();
-        entityManager.close();
     }
 
     @Override
