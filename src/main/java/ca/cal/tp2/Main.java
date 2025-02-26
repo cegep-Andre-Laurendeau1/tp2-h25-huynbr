@@ -2,6 +2,7 @@ package ca.cal.tp2;
 
 import ca.cal.tp2.DAO.*;
 import ca.cal.tp2.DTO.CDDTO;
+import ca.cal.tp2.DTO.DVDDTO;
 import ca.cal.tp2.DTO.EmprunteurDTO;
 import ca.cal.tp2.Service.EmprunteurService;
 import ca.cal.tp2.Service.PreposeService;
@@ -42,6 +43,12 @@ public class Main {
         CDDTO cddto = new CDDTO(null, "Disco Night", "Artist", "Editeur1", 2025, 3, 30, "Disco");
         preposeService.addCD(cddto);
         System.out.println("CD ajouté à la bibliothèque avec succès.");
+        System.out.println("---------------------------------------------------------------------------");
+
+        System.out.println("Ajout d'un DVD à la bibliothèque...");
+        DVDDTO dvddto = new DVDDTO(null, "Star wars", "George Lucas", "Editeur2", 1977, 1, 120, "Sci-fi");
+        preposeService.addDVD(dvddto);
+        System.out.println("DVD ajouté à la bibliothèque avec succès.");
         System.out.println("---------------------------------------------------------------------------");
     }
 }
