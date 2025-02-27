@@ -4,6 +4,7 @@ import ca.cal.tp2.DAO.*;
 import ca.cal.tp2.DTO.CDDTO;
 import ca.cal.tp2.DTO.DVDDTO;
 import ca.cal.tp2.DTO.EmprunteurDTO;
+import ca.cal.tp2.DTO.LivreDTO;
 import ca.cal.tp2.Service.EmprunteurService;
 import ca.cal.tp2.Service.PreposeService;
 import ca.cal.tp2.modele.Prepose;
@@ -49,6 +50,12 @@ public class Main {
         DVDDTO dvddto = new DVDDTO(null, "Star wars", "George Lucas", "Editeur2", 1977, 1, 120, "Sci-fi");
         preposeService.addDVD(dvddto);
         System.out.println("DVD ajouté à la bibliothèque avec succès.");
+        System.out.println("---------------------------------------------------------------------------");
+
+        System.out.println("Ajout d'un Livre à la bibliothèque...");
+        LivreDTO livreDTO = new LivreDTO(null, "Lord of the ring", "Tolkien", "Editeur", 1954, 0, 1216, "Fantasy");
+        preposeService.addLivre(livreDTO);
+        System.out.println("Livre ajouté à la bibliothèque avec succès.");
         System.out.println("---------------------------------------------------------------------------");
     }
 }

@@ -5,10 +5,7 @@ import ca.cal.tp2.DTO.CDDTO;
 import ca.cal.tp2.DTO.DVDDTO;
 import ca.cal.tp2.DTO.LivreDTO;
 import ca.cal.tp2.DTO.PreposeDTO;
-import ca.cal.tp2.modele.CD;
-import ca.cal.tp2.modele.DVD;
-import ca.cal.tp2.modele.Document;
-import ca.cal.tp2.modele.Prepose;
+import ca.cal.tp2.modele.*;
 
 public class PreposeService {
     private final PreposeDAO preposeDAO;
@@ -57,7 +54,15 @@ public class PreposeService {
         dvddao.save(dvd);
     }
     public void addLivre(LivreDTO livreDTO) {
-
+        Livre livre = new Livre();
+        livre.setTitre(livreDTO.getTitre());
+        livre.setAuteur(livreDTO.getAuteur());
+        livre.setEditeur(livreDTO.getEditeur());
+        livre.setAnnee(livreDTO.getAnnee());
+        livre.setCopiesDisponible(livreDTO.getCopiesAvailable());
+        livre.setNombrePages(livreDTO.getNombrePages());
+        livre.setGenre(livreDTO.getGenre());
+        livredao.save(livre);
     }
 
 }
