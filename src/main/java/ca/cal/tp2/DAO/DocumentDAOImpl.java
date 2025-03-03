@@ -39,7 +39,9 @@ public class DocumentDAOImpl implements DocumentDAO {
 
     @Override
     public List<Document> findByAuteur(String auteur) {
-        return List.of();
+        return entityManager.createQuery("SELECT d FROM Document d WHERE d.auteur = :auteur", Document.class)
+                .setParameter("auteur", auteur)
+                .getResultList();
     }
 
     @Override

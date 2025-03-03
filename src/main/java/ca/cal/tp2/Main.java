@@ -75,5 +75,11 @@ public class Main {
                 System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
         );
         System.out.println("---------------------------------------------------------------------------");
+
+        System.out.println("Recherche de livre par Auteur:");
+        documentService.chercherParAuteur("Frank Herbert").forEach(doc ->
+                System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
+        );
+        System.out.println("---------------------------------------------------------------------------");
     }
 }

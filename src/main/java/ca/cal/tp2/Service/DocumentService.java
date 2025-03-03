@@ -17,8 +17,17 @@ public class DocumentService {
         List<Document> listeDocuments = documentDAO.searchBytitre(titre);
         List<DocumentDTO> resultat = new ArrayList<>();
 
-        for (Document doc : listeDocuments) {
-            resultat.add(toDTO(doc));
+        for (Document document : listeDocuments) {
+            resultat.add(toDTO(document));
+        }
+        return resultat;
+    }
+    public List<DocumentDTO> chercherParAuteur(String auteur) {
+        List<Document> listeDocuments = documentDAO.findByAuteur(auteur);
+        List<DocumentDTO> resultat = new ArrayList<>();
+
+        for (Document document : listeDocuments) {
+            resultat.add(toDTO(document));
         }
         return resultat;
     }
