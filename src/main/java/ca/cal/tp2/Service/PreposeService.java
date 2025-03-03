@@ -4,7 +4,6 @@ import ca.cal.tp2.DAO.*;
 import ca.cal.tp2.DTO.CDDTO;
 import ca.cal.tp2.DTO.DVDDTO;
 import ca.cal.tp2.DTO.LivreDTO;
-import ca.cal.tp2.DTO.PreposeDTO;
 import ca.cal.tp2.modele.*;
 
 public class PreposeService {

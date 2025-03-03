@@ -32,7 +32,9 @@ public class DocumentDAOImpl implements DocumentDAO {
 
     @Override
     public List<Document> searchBytitre(String titre) {
-        return List.of();
+        return entityManager.createQuery("SELECT d FROM Document d WHERE d.titre LIKE :titre", Document.class)
+                .setParameter("titre", "%" + titre + "%")
+                .getResultList();
     }
 
     @Override
