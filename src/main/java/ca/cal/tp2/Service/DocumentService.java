@@ -32,6 +32,16 @@ public class DocumentService {
         return resultat;
     }
 
+    public List<DocumentDTO> chercherParAnne(int anne) {
+        List<Document> listeDocuments = documentDAO.findByYear(anne);
+        List<DocumentDTO> resultat = new ArrayList<>();
+
+        for (Document document : listeDocuments) {
+            resultat.add(toDTO(document));
+        }
+        return resultat;
+    }
+
     private DocumentDTO toDTO(Document document) {
         DocumentDTO dto = new DocumentDTO();
         dto.setId(document.getId());

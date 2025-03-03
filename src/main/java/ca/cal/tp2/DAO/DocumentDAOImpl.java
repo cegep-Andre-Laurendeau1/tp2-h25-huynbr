@@ -46,7 +46,9 @@ public class DocumentDAOImpl implements DocumentDAO {
 
     @Override
     public List<Document> findByYear(int annee) {
-        return List.of();
+        return entityManager.createQuery("SELECT d FROM Document d WHERE d.annee = :annee", Document.class)
+                .setParameter("annee", annee)
+                .getResultList();
     }
 
     @Override

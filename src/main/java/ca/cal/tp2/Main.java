@@ -81,5 +81,36 @@ public class Main {
                 System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
         );
         System.out.println("---------------------------------------------------------------------------");
+
+        System.out.println("Recherche de livre par Anne:");
+        documentService.chercherParAnne(1954).forEach(doc ->
+                System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
+        );
+        System.out.println("---------------------------------------------------------------------------");
+
+        System.out.println("Recherche de DVD par titre:");
+        documentService.chercherParTitre("Akira").forEach(doc ->
+                System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
+        );
+        System.out.println("---------------------------------------------------------------------------");
+
+        System.out.println("Recherche de DVD par Auteur:");
+        documentService.chercherParAuteur("Katsuhiro Otomo").forEach(doc ->
+                System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
+        );
+        System.out.println("---------------------------------------------------------------------------");
+
+        System.out.println("Recherche de CD par Titre:");
+        documentService.chercherParTitre("Disco").forEach(doc ->
+                System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
+        );
+        System.out.println("---------------------------------------------------------------------------");
+
+        System.out.println("Recherche de CD par Auteur:");
+        documentService.chercherParAuteur("Artist").forEach(doc ->
+                System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
+        );
+        System.out.println("---------------------------------------------------------------------------");
+
     }
 }
