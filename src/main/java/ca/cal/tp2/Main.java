@@ -3,6 +3,7 @@ package ca.cal.tp2;
 import ca.cal.tp2.DAO.*;
 import ca.cal.tp2.DTO.*;
 import ca.cal.tp2.Service.DocumentService;
+import ca.cal.tp2.Service.EmpruntService;
 import ca.cal.tp2.Service.EmprunteurService;
 import ca.cal.tp2.Service.PreposeService;
 import ca.cal.tp2.modele.Prepose;
@@ -26,6 +27,8 @@ public class Main {
         DocumentDAO documentDAO = new DocumentDAOImpl(em);
         DocumentService documentService = new DocumentService(documentDAO);
         PreposeService preposeService = new PreposeService(cdDAO, dvdDAO, livreDAO, documentDAO, preposeDAO);
+        EmpruntDAO empruntDAO = new EmpruntDAOImpl(em);
+        EmpruntService empruntService = new EmpruntService(emprunteurDAO, documentDAO, empruntDAO, em);
 
         System.out.println("Enregistrement d'un nouveau Emprunteur:");
         EmprunteurDTO emprunteur = emprunteurService.createEmprunteur("Smith", "John", "rue 1234", "johnsmith@gmail.com", "5141234567");
@@ -41,7 +44,7 @@ public class Main {
         System.out.println("---------------------------------------------------------------------------");
 
         System.out.println("Ajout d'un CD à la bibliothèque:");
-        CDDTO cddto = new CDDTO(null, "Disco Night", "Artist", "Editeur1", 2025, 3, 30, "Disco");
+        CDDTO cddto = new CDDTO(null, "Nevermind", "Nirvana", "Editeur1", 1991, 3, 30, "Grunge");
         preposeService.addCD(cddto);
         System.out.println("CD ajouté à la bibliothèque avec succès.");
         System.out.println("---------------------------------------------------------------------------");
@@ -101,15 +104,25 @@ public class Main {
         System.out.println("---------------------------------------------------------------------------");
 
         System.out.println("Recherche de CD par Titre:");
-        documentService.chercherParTitre("Disco").forEach(doc ->
+        documentService.chercherParTitre("Nevermind").forEach(doc ->
                 System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
         );
         System.out.println("---------------------------------------------------------------------------");
 
         System.out.println("Recherche de CD par Auteur:");
-        documentService.chercherParAuteur("Artist").forEach(doc ->
+        documentService.chercherParAuteur("Nirvana").forEach(doc ->
                 System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
         );
+        System.out.println("---------------------------------------------------------------------------");
+
+        System.out.println("Emprunter livre: ");
+        empruntService.effectuerEmprunt(emprunteur.getId(), "Akira");
+        System.out.println("---------------------------------------------------------------------------");
+        empruntService.effectuerEmprunt(emprunteur.getId(), "Lord of the rings");
+        System.out.println("---------------------------------------------------------------------------");
+        empruntService.effectuerEmprunt(emprunteur.getId(), "Potter");
+        System.out.println("---------------------------------------------------------------------------");
+        empruntService.effectuerEmprunt(emprunteur.getId(), "Nevermind");
         System.out.println("---------------------------------------------------------------------------");
 
     }

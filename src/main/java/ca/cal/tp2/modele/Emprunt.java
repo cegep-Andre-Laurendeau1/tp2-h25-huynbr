@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,4 +30,12 @@ public class Emprunt {
     private Emprunteur emprunteur;
     @OneToMany(mappedBy = "emprunt", cascade = CascadeType.ALL)
     private List<EmpruntDocument> empruntDocuments;
+
+    public void addEmpruntDocument(EmpruntDocument empruntDocument) {
+        if (this.empruntDocuments == null) {
+            this.empruntDocuments = new ArrayList<>();
+        }
+        empruntDocument.setEmprunt(this);
+        this.empruntDocuments.add(empruntDocument);
+    }
 }
