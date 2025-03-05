@@ -2,7 +2,6 @@ package ca.cal.tp2.modele;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;

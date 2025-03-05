@@ -11,7 +11,7 @@ import ca.cal.tp2.modele.Prepose;
 import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) throws  InterruptedException, SQLException {
+    public static void main(String[] args) throws SQLException {
         TcpServer.createTcpServer();
         EmprunteurService emprunteurService = new EmprunteurService(new EmprunteurDAOImpl());
         DocumentService documentService = new DocumentService(new DocumentDAOImpl());

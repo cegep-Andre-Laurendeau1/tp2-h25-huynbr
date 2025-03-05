@@ -1,7 +1,6 @@
 package ca.cal.tp2.DAO;
 
 import ca.cal.tp2.modele.DVD;
-import ca.cal.tp2.modele.Emprunteur;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
