@@ -7,28 +7,16 @@ import ca.cal.tp2.Service.EmpruntService;
 import ca.cal.tp2.Service.EmprunteurService;
 import ca.cal.tp2.Service.PreposeService;
 import ca.cal.tp2.modele.Prepose;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws  InterruptedException, SQLException {
         TcpServer.createTcpServer();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TP2BryanHuynh.ex1");
-        EntityManager em = emf.createEntityManager();
-        EmprunteurDAO emprunteurDAO = new EmprunteurDAOImpl(em);
-        EmprunteurService emprunteurService = new EmprunteurService(emprunteurDAO);
-        PreposeDAO preposeDAO = new PreposeDAOImpl(em);
-        CDDAO cdDAO = new CDDAOImpl(em);
-        DVDDAO dvdDAO = new DVDDAOImpl(em);
-        LivreDAO livreDAO = new LivreDAOImpl(em);
-        DocumentDAO documentDAO = new DocumentDAOImpl(em);
-        DocumentService documentService = new DocumentService(documentDAO);
-        PreposeService preposeService = new PreposeService(cdDAO, dvdDAO, livreDAO, documentDAO, preposeDAO);
-        EmpruntDAO empruntDAO = new EmpruntDAOImpl(em);
-        EmpruntService empruntService = new EmpruntService(emprunteurDAO, documentDAO, empruntDAO, em);
+        EmprunteurService emprunteurService = new EmprunteurService(new EmprunteurDAOImpl());
+        DocumentService documentService = new DocumentService(new DocumentDAOImpl());
+        PreposeService preposeService = new PreposeService(new CDDAOImpl(), new DVDDAOImpl(), new LivreDAOImpl(), new DocumentDAOImpl(), new PreposeDAOImpl());
+        EmpruntService empruntService = new EmpruntService(new EmprunteurDAOImpl(), new DocumentDAOImpl(), new EmpruntDAOImpl());
 
         System.out.println("Enregistrement d'un nouveau Emprunteur:");
         EmprunteurDTO emprunteur = emprunteurService.createEmprunteur("Smith", "John", "rue 1234", "johnsmith@gmail.com", "5141234567");

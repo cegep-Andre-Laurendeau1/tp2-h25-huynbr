@@ -2,29 +2,30 @@ package ca.cal.tp2.DAO;
 
 import ca.cal.tp2.modele.Document;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 import java.util.List;
 
 public class DocumentDAOImpl implements DocumentDAO {
-    private EntityManager entityManager;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("TP2BryanHuynh.ex1");
 
-    public DocumentDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
     @Override
     public Document findById(Long id) {
-        return entityManager.find(Document.class, id);
+        EntityManager em = emf.createEntityManager();
+        return em.find(Document.class, id);
     }
 
     @Override
     public void save(Document document) {
+        EntityManager em = emf.createEntityManager();
         try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(document);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            em.persist(document);
+            em.getTransaction().commit();
         } catch (RuntimeException e) {
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
             }
             throw e;
         }
@@ -32,27 +33,27 @@ public class DocumentDAOImpl implements DocumentDAO {
 
     @Override
     public List<Document> searchBytitre(String titre) {
-        return entityManager.createQuery("SELECT d FROM Document d WHERE d.titre LIKE :titre", Document.class)
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("SELECT d FROM Document d WHERE d.titre LIKE :titre", Document.class)
                 .setParameter("titre", "%" + titre + "%")
                 .getResultList();
     }
 
     @Override
     public List<Document> findByAuteur(String auteur) {
-        return entityManager.createQuery("SELECT d FROM Document d WHERE d.auteur = :auteur", Document.class)
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("SELECT d FROM Document d WHERE d.auteur = :auteur", Document.class)
                 .setParameter("auteur", auteur)
                 .getResultList();
     }
 
     @Override
     public List<Document> findByYear(int annee) {
-        return entityManager.createQuery("SELECT d FROM Document d WHERE d.annee = :annee", Document.class)
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("SELECT d FROM Document d WHERE d.annee = :annee", Document.class)
                 .setParameter("annee", annee)
                 .getResultList();
     }
 
-    @Override
-    public List<Document> findByEditeur(String editeur) {
-        return List.of();
-    }
+
 }

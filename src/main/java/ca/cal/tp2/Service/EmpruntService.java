@@ -6,7 +6,9 @@ import ca.cal.tp2.DAO.EmprunteurDAO;
 import ca.cal.tp2.DTO.EmpruntDTO;
 import ca.cal.tp2.modele.*;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,16 +19,15 @@ public class EmpruntService {
     private EmprunteurDAO emprunteurDAO;
     private DocumentDAO documentDAO;
     private EmpruntDAO empruntDAO;
-    private EntityManager entityManager;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("TP2BryanHuynh.ex1");
 
-    public EmpruntService(EmprunteurDAO emprunteurDAO, DocumentDAO documentDAO, EmpruntDAO empruntDAO, EntityManager entityManager) {
+    public EmpruntService(EmprunteurDAO emprunteurDAO, DocumentDAO documentDAO, EmpruntDAO empruntDAO) {
         this.emprunteurDAO = emprunteurDAO;
         this.documentDAO = documentDAO;
         this.empruntDAO = empruntDAO;
-        this.entityManager = entityManager;
     }
     public void effectuerEmprunt(Long empruntId, String documentTitre) {
-        EntityManager em = entityManager;
+        EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
         try {
             if (!transaction.isActive()) {

@@ -1,35 +1,42 @@
 package ca.cal.tp2.DAO;
 
+import ca.cal.tp2.modele.Emprunteur;
 import ca.cal.tp2.modele.Prepose;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 import java.util.List;
 
 public class PreposeDAOImpl implements PreposeDAO {
-    private EntityManager entityManager;
-
-    public PreposeDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("TP2BryanHuynh.ex1");
 
     @Override
     public void save(Prepose prepose) {
-        entityManager.getTransaction().begin();
-        if (prepose.getId() == null) {
-            entityManager.persist(prepose);
-        } else {
-            entityManager.merge(prepose);
+        try (EntityManager em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            em.persist(prepose);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            throw e;
         }
-        entityManager.getTransaction().commit();
     }
 
     @Override
     public Prepose findById(Long id) {
-        return entityManager.find(Prepose.class, id);
+        try (EntityManager em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            Prepose prepose = em.find(Prepose.class, id);
+            em.getTransaction().commit();
+            return prepose;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public List<Prepose> findAll() {
-        return entityManager.createQuery("from Prepose", Prepose.class).getResultList();
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("from Prepose", Prepose.class).getResultList();
     }
 }

@@ -2,23 +2,24 @@ package ca.cal.tp2.DAO;
 
 import ca.cal.tp2.modele.Emprunt;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 import java.util.List;
 
 public class EmpruntDAOImpl implements EmpruntDAO {
-    EntityManager entityManager;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("TP2BryanHuynh.ex1");
 
-    public EmpruntDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
     @Override
     public Emprunt findById(Long id) {
-        return entityManager.find(Emprunt.class, id);
+        EntityManager em = emf.createEntityManager();
+        return em.find(Emprunt.class, id);
     }
 
     @Override
     public List<Emprunt> findAllByEmpruntId(Long id) {
-        return entityManager.createQuery(
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery(
                         "SELECT e FROM Emprunt e WHERE e.emprunteur.id = :emprunteurId",
                         Emprunt.class)
                 .setParameter("emprunteurId", id)
@@ -27,20 +28,19 @@ public class EmpruntDAOImpl implements EmpruntDAO {
 
     @Override
     public void save(Emprunt emprunt) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(emprunt);
-            entityManager.getTransaction().commit();
+        try (EntityManager em = emf.createEntityManager()){
+            em.getTransaction().begin();
+            em.persist(emprunt);
+            em.getTransaction().commit();
         } catch (Exception e) {
-            if (entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
-            } throw e;
+            throw e;
         }
     }
 
     @Override
     public List<Emprunt> findByEmprunteurId(Long id) {
-        return entityManager.createQuery(
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery(
                         "SELECT e FROM Emprunt e WHERE e.emprunteur.id = :emprunteurId",
                         Emprunt.class)
                 .setParameter("emprunteurId", id)
