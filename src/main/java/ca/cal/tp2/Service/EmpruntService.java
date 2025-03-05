@@ -3,11 +3,13 @@ package ca.cal.tp2.Service;
 import ca.cal.tp2.DAO.DocumentDAO;
 import ca.cal.tp2.DAO.EmpruntDAO;
 import ca.cal.tp2.DAO.EmprunteurDAO;
+import ca.cal.tp2.DTO.EmpruntDTO;
 import ca.cal.tp2.modele.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,4 +80,25 @@ public class EmpruntService {
         }
         return 0;
     }
+    public List<EmpruntDTO> getEmprunts(Long clientId) {
+        List<Emprunt> emprunts = empruntDAO.findAllByEmpruntId(clientId);
+        List<EmpruntDTO> empruntDTOs = new ArrayList<>();
+
+        for (Emprunt emprunt : emprunts) {
+            List<String> titres = new ArrayList<>();
+            for (EmpruntDocument empruntDocument : emprunt.getEmpruntDocuments()) {
+                titres.add(empruntDocument.getDocument().getTitre());
+            }
+            EmpruntDTO empruntDTO = new EmpruntDTO(
+                    clientId,
+                    emprunt.getDateEmprunt(),
+                    emprunt.getDateRetourPrevu(),
+                    emprunt.getDateRetourReel(),
+                    titres
+            );
+            empruntDTOs.add(empruntDTO);
+        }
+        return empruntDTOs;
+    }
+
 }

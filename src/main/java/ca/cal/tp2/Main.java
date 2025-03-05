@@ -125,5 +125,13 @@ public class Main {
         empruntService.effectuerEmprunt(emprunteur.getId(), "Nevermind");
         System.out.println("---------------------------------------------------------------------------");
 
+        System.out.print("Liste des emprunts de " + emprunteur.getPrenom() + " " + emprunteur.getNom());
+        empruntService.getEmprunts(emprunteur.getId()).forEach(emprunt ->
+                System.out.print(
+                        "\n Documents : " + String.join(", ", emprunt.getDocumentTitres()) +
+                        "\n Date d'emprunt : " + emprunt.getDateEmprunt() +
+                        "\n Date de retour prévue : " + emprunt.getDateRetourPrevu() +
+                        "\n-------------------------")
+        );
     }
 }

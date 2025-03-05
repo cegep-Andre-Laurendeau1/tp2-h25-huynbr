@@ -14,8 +14,8 @@ import java.util.List;
 @Setter
 public class EmpruntDTO {
     private Long id;
-    private List<String> documentTitles;
     private LocalDate dateEmprunt;
     private LocalDate dateRetourPrevu;
     private LocalDate dateRetourReel;
+    private List<String> documentTitres;
 }
