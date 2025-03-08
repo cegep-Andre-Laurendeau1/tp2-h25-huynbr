@@ -73,7 +73,7 @@ public class Main {
         );
         System.out.println("---------------------------------------------------------------------------");
 
-        System.out.println("Recherche de livre par Anne:");
+        System.out.println("Recherche de livre par Année:");
         documentService.chercherParAnne(1954).forEach(doc ->
                 System.out.println("Titre : " + doc.getTitre() + " | Auteur : " + doc.getAuteur() + " | Éditeur : " + doc.getEditeur())
         );

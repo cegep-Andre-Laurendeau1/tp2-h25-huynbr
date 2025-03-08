@@ -26,14 +26,16 @@ public class EmpruntService {
         this.documentDAO = documentDAO;
         this.empruntDAO = empruntDAO;
     }
-    public void effectuerEmprunt(Long empruntId, String documentTitre) {
+    public void effectuerEmprunt(Long emprunteurId, String documentTitre) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
+
         try {
             if (!transaction.isActive()) {
                 transaction.begin();
             }
-            Emprunteur emprunteur = emprunteurDAO.findById(empruntId);
+
+            Emprunteur emprunteur = emprunteurDAO.findById(emprunteurId);
             List<Document> documents = documentDAO.searchBytitre(documentTitre);
 
             Optional<Document> documentOpt = documents.stream()
@@ -42,33 +44,44 @@ public class EmpruntService {
 
             if (!documentOpt.isPresent()) {
                 System.out.println("Désolé, plus d'exemplaires disponibles pour: " + documentTitre);
-            } else {
-                Document document = documentOpt.get();
-                if (emprunteur == null) {
-                    System.out.println("Emprunteur introuvable.");
-                } else {
-                    LocalDate date = LocalDate.now().plusDays(getEmpruntDuree(document));
-                    Emprunt emprunt = new Emprunt();
-                    emprunt.setEmprunteur(emprunteur);
-                    emprunt.setDateEmprunt(LocalDate.now());
-                    emprunt.setDateRetourPrevu(date);
-                    EmpruntDocument empruntDocument = new EmpruntDocument();
-                    empruntDocument.setDocument(document);
-                    empruntDocument.setEmprunt(emprunt);
-                    empruntDocument.setDateRetour(date);
-                    emprunt.addEmpruntDocument(empruntDocument);
-                    document.setCopiesDisponible(document.getCopiesDisponible() - 1);
-                    em.persist(emprunt);
-                    em.merge(document);
-                    transaction.commit();
-                    System.out.println("Emprunt confirmé avec succès pour: " + documentTitre);
-                }
+                return;
             }
+
+            if (emprunteur == null) {
+                System.out.println("Emprunteur introuvable.");
+                return;
+            }
+
+            Document document = documentOpt.get();
+            LocalDate dateRetour = LocalDate.now().plusDays(getEmpruntDuree(document));
+
+            Emprunt emprunt = new Emprunt();
+            emprunt.setEmprunteur(emprunteur);
+            emprunt.setDateEmprunt(LocalDate.now());
+            emprunt.setDateRetourPrevu(dateRetour);
+
+            EmpruntDocument empruntDocument = new EmpruntDocument();
+            empruntDocument.setDocument(document);
+            empruntDocument.setEmprunt(emprunt);
+            empruntDocument.setDateRetour(dateRetour);
+
+            emprunt.addEmpruntDocument(empruntDocument);
+
+            document.setCopiesDisponible(document.getCopiesDisponible() - 1);
+
+            empruntDAO.save(emprunt);
+            documentDAO.updateDocument(document);
+
+            transaction.commit();
+            System.out.println("Emprunt confirmé avec succès pour: " + documentTitre);
+
         } catch (Exception e) {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
             e.printStackTrace();
+        } finally {
+            em.close();
         }
     }
     private int getEmpruntDuree(Document document) {

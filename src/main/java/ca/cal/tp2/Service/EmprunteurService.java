@@ -21,7 +21,11 @@ public class EmprunteurService {
         emprunteurDAO.save(emprunteur);
         return toDTO(emprunteur);
     }
-
+    private EmprunteurDTO toDTO(Emprunteur emprunteur) {
+        return new EmprunteurDTO(emprunteur.getId(), emprunteur.getNom()
+                , emprunteur.getPrenom(), emprunteur.getAdresse()
+                , emprunteur.getEmail(), emprunteur.getTelephone());
+    }
     public EmprunteurDTO getEmprunteur(Long id) {
         Emprunteur emprunteur = emprunteurDAO.findById(id);
         if (emprunteur != null) {
@@ -32,9 +36,4 @@ public class EmprunteurService {
         }
     }
 
-    private EmprunteurDTO toDTO(Emprunteur emprunteur) {
-        return new EmprunteurDTO(emprunteur.getId(), emprunteur.getNom()
-                , emprunteur.getPrenom(), emprunteur.getAdresse()
-                , emprunteur.getEmail(), emprunteur.getTelephone());
-    }
 }

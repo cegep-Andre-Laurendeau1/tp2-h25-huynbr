@@ -55,5 +55,20 @@ public class DocumentDAOImpl implements DocumentDAO {
                 .getResultList();
     }
 
+    @Override
+    public void updateDocument(Document document) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(document);
+            em.getTransaction().commit();
+        } catch (RuntimeException e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        }
+    }
+
 
 }

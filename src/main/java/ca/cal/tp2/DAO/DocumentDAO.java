@@ -13,5 +13,6 @@ public interface DocumentDAO {
     List<Document> findByAuteur(String auteur);
 
     List<Document> findByYear(int annee);
+    void updateDocument(Document document);
 
 }
